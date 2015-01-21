@@ -1,0 +1,21 @@
+{
+  "name": "portfolio-web-site",
+  "description": "Building Portfolio for Koustubh Gaikwad",
+  "version": "0.0.0",
+  "homepage": "",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "angular": "1.3.x",
+    "angular-route": "~1.3.0",
+    "jquery": "~2.1.1",
+    "bootstrap": "~3.1.1",
+    "angular-resource": "~1.3.0",
+    "angular-animate": "~1.3.0",
+     "hammerjs": "2.0.x",
+    "angular-material": "",
+    "angular-ui-router": "",
+   "bootstrap-material-design" : "",
+   "bootstrap" : "" 
+  }
+}
