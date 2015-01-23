@@ -5,13 +5,20 @@ var wsdControllers = angular.module('wsdControllers',[]);
 wsdControllers.controller('inputController',['$scope','$http',function($scope,$http){
 
 	//set default values here
-	$scope.endpoint = "localhost";
+	$scope.endpoint = "http://localhost:8080/nlp-wsd-demo/wsd/disambiguate?";
 	$scope.algorithm = "lesk";
-	$scope.hypernymValue = "1";
-	$scope.hyponymValue = "1";
 	$scope.sentence = "test sentence";
 	$scope.targetWord = "";
 	$scope.depthValue = 1;
+	$scope.depthFactor = 0;
+	$scope.synonyms = false;
+	$scope.hypernyms = false;
+	$scope.hyponyms = false;
+	$scope.holonyms = false;
+	$scope.meronyms = false;
+
+
+
 
 	$scope.getSensesAndScores = function()
 	{
@@ -19,24 +26,32 @@ wsdControllers.controller('inputController',['$scope','$http',function($scope,$h
 		var params;
 		$scope.isProgress = 1;
 
-		if($scope.algorithm=="lesk")
+		//Mandatory parameters
+		params = "inputSentence=" + $scope.sentence;
+		params += "&targetWord=" + $scope.targetWord;
+		params += "&algo=" + $scope.algorithm;
+		
+		//Formulate query based on th parameters
+		if($scope.algorithm=="extLesk" || $scope.algorithm=="extLeskCont")
 		{
-			params = "input_sentence" + $scope.sentence + "&";
-			params = params + "targetWord" + $scope.targetWord + "&";
-			params = params + "POS"
+
+			params += "&synonyms=" + $scope.synonyms;
+			params += "&hypernyms=" + $scope.hypernyms;
+			params += "&hyponyms=" + $scope.hyponyms;
+			params += "&holonyms=" + $scope.holonyms;
+			params += "&meronyms=" + $scope.meronyms;
+			params += "&depthValue=" + $scope.depthValue;
+			params += "&depthFactor=" + $scope.depthFactor/10;
+			
 		}
 
-
-
-
-
 		//call the Rest service
-		$http.get('http://localhost:8080/nlp-wsd-demo/wsd/disambiguate').
+		$http.get($scope.endpoint + params ).
 		//$http.get('test.json').
         success(function(data) {
             $scope.sensesscores = $.parseJSON(data);
             $scope.isProgress = 0;
-            console.log(data);
+            
         });
 
 	}

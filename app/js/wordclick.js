@@ -6,6 +6,7 @@
   		var s = window.getSelection();
   		s.modify('extend','backward','word');        
   		var b = s.toString();
+  	
 
   		s.modify('extend','forward','word');
   		var a = s.toString();
