@@ -10,6 +10,7 @@
 	<!-- Twitter Bootstrap css -->
 	<link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
 
+	<link rel="stylesheet" href="css/app.css">
 
 	<!-- Set a Material Theme -->
 	<link rel="stylesheet" href="../bower_components/angular-material/themes/amber-theme.css">
@@ -19,6 +20,11 @@
 	<link href="../bower_components/bootstrap-material-design/dist/css/material-wfont.min.css" rel="stylesheet">
 	<link href="../bower_components/bootstrap-material-design/dist/css/ripples.min.css" rel="stylesheet">
 
+	<!-- Jquery -->
+	<script src="../bower_components/jquery/dist/jquery.js"></script>
+
+	<!-- Some customized scripts -->
+	<script type="text/javascript" src="js/wordclick.js"></script>
 
 	<!-- angular ui-route script -->
 	<script src="../bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
@@ -51,55 +57,105 @@
 			
 				<md-text-float label="Window Size (neighboring words to be considered)" data-ng-model="win_size"></md-text-float> -->
 				
+				<label style="top:10px;position:absolute;"> Enter input sentence </label><br/><br/>
 
-				<md-text-float style="width:500px;" label="Enter the sentence" data-ng-model="sentence" required></md-text-float>
-			
+
+				<textarea  style="width:500px" data-ng-model="sentence"></textarea>
+				<br/><br/>
+
+				<div data-ng-show="sentence.length > 0">
+					<label > You entered the following sentence. Click on the word below to disambiguate </label><br/>
+					<div id="sentence">{{sentence}}</div>
+				</div>
 				
-				<md-text-float style="width:500px;" label="Enter the target word" data-ng-model="target_word" required></md-text-float>
+				<br/>
 
-				<md-text-float label="Window Size (neighboring words to be considered)" data-ng-model="win_size"></md-text-float> 
+				<!-- Target Word -->
+				<div data-ng-show="targetWord.length > 0">
+					<label>Target Word:</label> {{targetWord}}
+				</div><br/>
 
-
-				Algorithm Name <br/>
+				<!-- Algorithm name -->
+				<label>Algorithm Name </label><br/>
 				<select data-ng-model="algorithm">
 					<option value="lesk">Lesk</option>
 					<option value="extLesk">Extended Lesk</option>
-				</select> <br/><br/>
+					<option value="extLeskCont">Extended Contectual Lesk</option>
+				</select> 
 
-				<div data-ng-show="algorithm =='extLesk'">
-					<div style="float:left;width:50%;position:relative;">
-						<md-radio-group data-ng-model="hypernymValue">
+				<!--Progress bar -->
+				<center>
+					<div data-ng-model="isProgress" data-ng-show= "isProgress==1">
+						<md-progress-circular class="md-hue-2" md-mode="indeterminate"></md-progress-circular>
+					</div>
+				</center>
 
+				<br/><br/>
 
-						Select Hypernym depth : {{hypernymValue}}
+				<div data-ng-show="algorithm =='extLesk' || algorithm =='extLeskCont'">
+					<div style="height:245px;position:relative">
+					<div style="float:left;width:33%;position:relative;">
 
+						<label> Select to include the following </label>
+						<md-checkbox ng-model="synonyms" data-ng-disabled="false">
+						Synonyms 
+					</md-checkbox>
+					<md-checkbox  ng-model="hypernyms">
+					Hypernyms
+				</md-checkbox>
+				<md-checkbox  ng-model="hyponyms">
+				Hyponyms
+			</md-checkbox>
+			<md-checkbox  ng-model="holonyms">
+			Holonyms
+		</md-checkbox>
+		<md-checkbox ng-model="meronyms">
+		Meronyms
+	</md-checkbox>
 
-						<md-radio-button value="1" aria-label="Label 1">1</md-radio-button>
-						<md-radio-button value="2" aria-label="Label 1">2</md-radio-button>
-						<md-radio-button value="3" aria-label="Label 1">3</md-radio-button>
+</div>
 
-					</md-radio-group>
-
-				</div>
-				<div style="float:left;width:50%;position:relative;">
-					<md-radio-group data-ng-model="hyponymValue">
-
-					Select Hyponym depth : {{hyponymValue}}
-
-					<md-radio-button value="1" aria-label="Label 1">1</md-radio-button>
-					<md-radio-button value="2" aria-label="Label 1">2</md-radio-button>
-					<md-radio-button value="3" aria-label="Label 1">3</md-radio-button>
-
-				</md-radio-group>
-			</div>
-		</div>
-
-		<center>
-			
-			<md-button data-ng-click="changeResume('japanese')"  class="md-raised md-primary"> Submit </md-button>
-		</center>
-
+<div style="float:left;width:33%;top:25%;position:relative;">
+	<label> Depth Value
+		<select data-ng-model="depthValue">
+			<option value="1">1</option>
+			<option value="2">2</option>
+			<option value="3">3</option>
+		</select> &nbsp;
+		
 	</div>
+
+	<div style="float:left;width:33%;top:25%;position:relative;">
+		<label>Depth Factor (X)<sup>level : </label> &nbsp;{{depthFactor/10}}
+		<md-slider flex min="0" max="10" aria-label="blue" data-ng-model="depthFactor">
+</md-slider>
+	</div>
+	
+</div>
+</div>
+
+<center>
+
+	<md-button data-ng-click="getSensesAndScores()"  class="md-raised md-primary"> Submit </md-button>
+</center>
+
+<!-- Section for printing result -->
+
+<md-list data-ng-repeat="item in sensesscores  | orderBy:'score':true">
+<md-item-content>
+<div class="md-tile-content">
+	{{item.sense}}
+</div>
+<div class="md-tile-left">
+	{{item.score}}
+</div>
+</md-item-content> 
+
+
+
+
+
+</div>
 </div>
 </md-content>
 
