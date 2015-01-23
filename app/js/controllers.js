@@ -6,8 +6,9 @@ wsdControllers.controller('inputController',['$scope','$http',function($scope,$h
 
 	//set default values here
 	$scope.endpoint = "http://localhost:8080/nlp-wsd-demo/wsd/disambiguate?";
+	$scope.endpointTokenize = "http://localhost:8080/nlp-wsd-demo/wsd/tokenize?";
 	$scope.algorithm = "lesk";
-	$scope.sentence = "test sentence";
+	$scope.sentence = "";
 	$scope.targetWord = "";
 	$scope.depthValue = 1;
 	$scope.fWindow = 0;
@@ -18,8 +19,30 @@ wsdControllers.controller('inputController',['$scope','$http',function($scope,$h
 	$scope.hyponyms = false;
 	$scope.holonyms = false;
 	$scope.meronyms = false;
+	$scope.tokens = ""
 
 
+	$scope.tokenize = function(sentence)
+	{
+		$scope.endpointTokenize
+		$scope.isTokenLoading = 1; 
+		$http.get($scope.endpointTokenize + "sentence=" + $scope.sentence ).
+		//$http.get('test.json').
+        success(function(data) {
+
+            $scope.tokens = $.parseJSON(data);
+            
+            $scope.isTokenLoading = 0;
+            
+        });
+
+	}
+
+	$scope.setIndex = function(index,word){
+		$scope.index = index;
+		$scope.targetWord = word;
+
+	}
 
 
 	$scope.getSensesAndScores = function()
@@ -31,6 +54,9 @@ wsdControllers.controller('inputController',['$scope','$http',function($scope,$h
 		//Mandatory parameters
 		params = "inputSentence=" + $scope.sentence;
 		params += "&targetWord=" + $scope.targetWord;
+		params += "&fwindow=" + $scope.fWindow;
+		params += "&bwindow=" + $scope.bWindow;
+		params += "&indexWord=" + $scope.index;	
 		params += "&algo=" + $scope.algorithm;
 		
 		//Formulate query based on th parameters
@@ -44,7 +70,7 @@ wsdControllers.controller('inputController',['$scope','$http',function($scope,$h
 			params += "&meronyms=" + $scope.meronyms;
 			params += "&depthValue=" + $scope.depthValue;
 			params += "&depthFactor=" + $scope.depthFactor/10;
-			
+				
 		}
 
 		//call the Rest service

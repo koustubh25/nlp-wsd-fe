@@ -60,13 +60,23 @@
 				<label style="top:10px;position:absolute;"> Enter input sentence </label><br/><br/>
 
 
-				<textarea  style="width:500px" data-ng-model="sentence"></textarea>
+				<textarea  style="width:500px" name="text" data-ng-model="sentence" data-ng-minlength="1" required></textarea> <md-button data-ng-click="tokenize()"  class="md-raised md-primary" data-ng-disabled="sentence.length < 1"> Tokenize </md-button>
+				<div data-ng-model="isProgress" data-ng-show= "isTokenLoading==1">
+						<md-progress-circular class="md-hue-2" md-mode="indeterminate"></md-progress-circular>
+					</div>
 				<br/><br/>
 
-				<div data-ng-show="sentence.length > 0">
-					<label > You entered the following sentence. Click on the word below to disambiguate </label><br/>
-					<div id="sentence">{{sentence}}</div>
+				<div data-ng-show="tokens.length > 0">
+					<label > Click the target word from the following tokens </label><br/>
+					<nobr>
+					<div data-ng-repeat="token in tokens">
+						<div data-ng-click="setIndex(token.index,token.word)">{{token.word}}</div>
+					</div>
+				</nobr>
 				</div>
+
+
+			
 				
 				<br/>
 
@@ -82,20 +92,22 @@
 				<select data-ng-model="algorithm">
 					<option value="lesk">Lesk</option>
 					<option value="extLesk">Extended Lesk</option>
-					<option value="extLeskCont">Extended Contectual Lesk</option>
+					<option value="extLeskCont">Extended Contextual Lesk</option>
 				</select>
 			</div>
+			<div data-ng-show="algorithm != 'extLesk'">
 			<div style="float:left;width:25%;position:relative;">
 				<label>Forward Window Size : </label> &nbsp;{{fWindow}} <br/>
-				(0 = Consider all words)
+				
 		<md-slider flex min="0" max="20" aria-label="blue" data-ng-model="fWindow">
 			</div>
 
 			<div style="float:right;width:25%;position:relative;">
 				<label>Backward Window Size : </label> &nbsp;{{bWindow}} <br/>
-				(0 = Consider all words)
+				
 		<md-slider flex min="0" max="20" aria-label="blue" data-ng-model="bWindow">
 			</div>
+		</div>
 			</div>
 
 				<!--Progress bar -->
@@ -116,7 +128,7 @@
 					
 
 						<md-checkbox data-ng-model="synonyms">
-						Synonyms {{synonyms}}
+						Synonyms 
 					</md-checkbox>
 					<md-checkbox  data-ng-model="hypernyms">
 					Hypernyms
@@ -146,7 +158,7 @@
 	</div>
 
 	<div style="float:left;width:33%;top:25%;position:relative;">
-		<label>Depth Factor (depth)<sup>level : </label> &nbsp;{{depthFactor/10}}
+		<label>Depth Factor (X)<sup>level : </label> &nbsp;{{depthFactor/10}}
 		<md-slider flex min="1" max="10" aria-label="blue" data-ng-model="depthFactor">
 </md-slider>
 	</div>
