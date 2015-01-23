@@ -76,12 +76,27 @@
 				</div><br/>
 
 				<!-- Algorithm name -->
+				<div style="height:100px;position:realtive">
+					<div style="float:left;width:33%;position:relative;">
 				<label>Algorithm Name </label><br/>
 				<select data-ng-model="algorithm">
 					<option value="lesk">Lesk</option>
 					<option value="extLesk">Extended Lesk</option>
 					<option value="extLeskCont">Extended Contectual Lesk</option>
-				</select> 
+				</select>
+			</div>
+			<div style="float:left;width:25%;position:relative;">
+				<label>Forward Window Size : </label> &nbsp;{{fWindow}} <br/>
+				(0 = Consider all words)
+		<md-slider flex min="0" max="20" aria-label="blue" data-ng-model="fWindow">
+			</div>
+
+			<div style="float:right;width:25%;position:relative;">
+				<label>Backward Window Size : </label> &nbsp;{{bWindow}} <br/>
+				(0 = Consider all words)
+		<md-slider flex min="0" max="20" aria-label="blue" data-ng-model="bWindow">
+			</div>
+			</div>
 
 				<!--Progress bar -->
 				<center>
@@ -132,7 +147,7 @@
 
 	<div style="float:left;width:33%;top:25%;position:relative;">
 		<label>Depth Factor (depth)<sup>level : </label> &nbsp;{{depthFactor/10}}
-		<md-slider flex min="0" max="10" aria-label="blue" data-ng-model="depthFactor">
+		<md-slider flex min="1" max="10" aria-label="blue" data-ng-model="depthFactor">
 </md-slider>
 	</div>
 	

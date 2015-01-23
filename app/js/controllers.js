@@ -10,6 +10,8 @@ wsdControllers.controller('inputController',['$scope','$http',function($scope,$h
 	$scope.sentence = "test sentence";
 	$scope.targetWord = "";
 	$scope.depthValue = 1;
+	$scope.fWindow = 0;
+	$scope.bWindow = 0;
 	$scope.depthFactor = 0;
 	$scope.synonyms = false;
 	$scope.hypernyms = false;
