@@ -165,9 +165,10 @@
 	<md-button data-ng-click="getSensesAndScores()"  class="md-raised md-primary" data-ng-disabled="isValid() == false"> Submit </md-button>
 </center>
 
+
 <!-- Section for printing result -->
 
-<br/>
+<br/><br/>
 <center>
 <span data-ng-show="errorSubmit == 1 " class="error">
 	Something went wrong with the request. Check the parameters and try again.
@@ -177,13 +178,13 @@
 <span data-ng-show="showHeaders == 1">
 <md-list>
 <md-item-content>
-<div class="md-tile-left">
+<div class="md-tile-left highlight">
 	<b>No.</b>
 </div>
-<div class="md-tile-content">
+<div class="md-tile-content highlight">
 	<b>Sense</b>
 </div>
-<div class="md-tile-left">
+<div class="md-tile-left highlight">
 	<b>Score</b>
 </div>
 </md-item-content> 
@@ -193,13 +194,13 @@
 
 <md-list data-ng-repeat="item in sensesscores  | orderBy:'score':true">
 <md-item-content class="md-blue-theme">
-<div class="md-tile-left">
+<div class="md-tile-left ">
 	{{$index + 1}}
 </div>
-<div class="md-tile-content">
+<div class="md-tile-content ">
 	{{item.sense}}
 </div>
-<div class="md-tile-left">
+<div class="md-tile-left ">
 	{{item.score}}
 </div>
 </md-item-content> 
