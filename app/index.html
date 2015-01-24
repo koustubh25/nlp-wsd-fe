@@ -50,9 +50,13 @@
 
 	<!--input sentence -->		
 	<label style="top:10px;position:absolute;"> Enter input sentence </label><br/><br/>
-	<textarea  style="width:500px" name="text" data-ng-model="sentence" data-ng-minlength="1" required>
+	
+	<div data-ng-form= "inputSentence">
+	<textarea  style="width:500px" name="sent" data-ng-model="sentence" data-ng-minlength="1" required>
+	
 	</textarea> 
-	<md-button data-ng-click="tokenize()"  class="md-raised md-primary" data-ng-disabled="sentence.length < 1"> Tokenize </md-button>
+	<md-button data-ng-disabled ="!inputSentence.$valid" data-ng-click="tokenize()"  class="md-raised md-primary"> Tokenize </md-button><span class="error" data-ng-show="errorTokenize == true">&nbsp;Failed to tokenize. Please try again.</span>
+	</div>
 
 	<!--Loading icon -->
 	<div data-ng-model="isProgress" data-ng-show= "isTokenLoading==1">
@@ -158,10 +162,17 @@
 
 <center>
 
-	<md-button data-ng-click="getSensesAndScores()"  class="md-raised md-primary"> Submit </md-button>
+	<md-button data-ng-click="getSensesAndScores()"  class="md-raised md-primary" data-ng-disabled="isValid() == false"> Submit </md-button>
 </center>
 
 <!-- Section for printing result -->
+
+<br/>
+<center>
+<span data-ng-show="errorSubmit == 1 " class="error">
+	Something went wrong with the request. Check the parameters and try again.
+</span>
+</center>
 
 <span data-ng-show="showHeaders == 1">
 <md-list>

@@ -11,6 +11,12 @@
 }
 .app{
 
-	style="background-color:white;
+	background-color:white;
 	font-size: 14px;
+}
+.error{
+
+	font-weight: bold;
+	color:red;
+	font-size: 16px;
 }
