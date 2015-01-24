@@ -16,10 +16,6 @@
 	<link rel="stylesheet" href="../bower_components/angular-material/themes/amber-theme.css">
 	<script src="../bower_components/angular/angular.js"></script>
 
-	<!-- Material Design for Bootstrap -->
-	<link href="../bower_components/bootstrap-material-design/dist/css/material-wfont.min.css" rel="stylesheet">
-	<link href="../bower_components/bootstrap-material-design/dist/css/ripples.min.css" rel="stylesheet">
-
 	<!-- Jquery -->
 	<script src="../bower_components/jquery/dist/jquery.js"></script>
 
@@ -51,99 +47,95 @@
 <md-content layout-align="center">
 <div data-ng-controller="inputController" style="top:10%;position:relative; left:10%;width:80%">
 
-			<!--<md-text-float label="Please enter the sentence" data-ng-model="sentence" style="width:300px !important;"></md-text-float>
-				{{sentence}}
-			
-			
-				<md-text-float label="Window Size (neighboring words to be considered)" data-ng-model="win_size"></md-text-float> -->
-				
-				<label style="top:10px;position:absolute;"> Enter input sentence </label><br/><br/>
 
+	<!--input sentence -->		
+	<label style="top:10px;position:absolute;"> Enter input sentence </label><br/><br/>
+	<textarea  style="width:500px" name="text" data-ng-model="sentence" data-ng-minlength="1" required>
+	</textarea> 
+	<md-button data-ng-click="tokenize()"  class="md-raised md-primary" data-ng-disabled="sentence.length < 1"> Tokenize </md-button>
 
-				<textarea  style="width:500px" name="text" data-ng-model="sentence" data-ng-minlength="1" required></textarea> <md-button data-ng-click="tokenize()"  class="md-raised md-primary" data-ng-disabled="sentence.length < 1"> Tokenize </md-button>
-				<div data-ng-model="isProgress" data-ng-show= "isTokenLoading==1">
-						<md-progress-circular class="md-hue-2" md-mode="indeterminate"></md-progress-circular>
-					</div>
-				<br/><br/>
+	<!--Loading icon -->
+	<div data-ng-model="isProgress" data-ng-show= "isTokenLoading==1">
+		<md-progress-circular class="md-hue-2" md-mode="indeterminate"></md-progress-circular>
+	</div>
+	<br/><br/>
 
-				<div data-ng-show="tokens.length > 0">
-					<label > Click the target word from the following tokens </label><br/>
-					<nobr>
-					<div data-ng-repeat="token in tokens">
-						<div data-ng-click="setIndex(token.index,token.word)">{{token.word}}</div>
-					</div>
-				</nobr>
-				</div>
-
-
-			
-				
-				<br/>
-
-				<!-- Target Word -->
-				<div data-ng-show="targetWord.length > 0">
-					<label>Target Word:</label> {{targetWord}}
-				</div><br/>
-
-				<!-- Algorithm name -->
-				<div style="height:100px;position:realtive">
-					<div style="float:left;width:33%;position:relative;">
-				<label>Algorithm Name </label><br/>
-				<select data-ng-model="algorithm">
-					<option value="lesk">Lesk</option>
-					<option value="extLesk">Extended Lesk</option>
-					<option value="extLeskCont">Extended Contextual Lesk</option>
-				</select>
+	<!--Display the list of tokens -->
+	<div data-ng-show="tokens.length > 0">
+		<label > Click the target word from the following tokens </label><br/>
+			<div data-ng-repeat="token in tokens">
+				<div data-ng-click="setIndex(token.index,token.word)" data-ng-class="selected:true">{{token.word}}</div>
 			</div>
-			<div data-ng-show="algorithm != 'extLesk'">
+	</div>
+
+	<br/>
+
+	<!-- Display Target Word -->
+	<div data-ng-show="targetWord.length > 0">
+		<label>Target Word:</label> <mark>{{targetWord}}</mark>
+	</div><br/>
+
+	<!-- Algorithm name -->
+	<div style="height:100px;position:realtive">
+		<div style="float:left;width:33%;position:relative;">
+			<label>Algorithm Name </label><br/>
+			<select data-ng-model="algorithm">
+				<option value="lesk">Lesk</option>
+				<option value="extLesk">Extended Lesk</option>
+				<option value="extLeskCont">Extended Contextual Lesk</option>
+			</select>
+		</div>
+
+		<!-- Forward and Backward Window -->
+		<div data-ng-show="algorithm != 'extLesk'">
 			<div style="float:left;width:25%;position:relative;">
 				<label>Forward Window Size : </label> &nbsp;{{fWindow}} <br/>
-				
-		<md-slider flex min="0" max="20" aria-label="blue" data-ng-model="fWindow">
+
+				<md-slider flex min="0" max="20" aria-label="blue" data-ng-model="fWindow">
 			</div>
 
 			<div style="float:right;width:25%;position:relative;">
 				<label>Backward Window Size : </label> &nbsp;{{bWindow}} <br/>
-				
-		<md-slider flex min="0" max="20" aria-label="blue" data-ng-model="bWindow">
+
+				<md-slider flex min="0" max="20" aria-label="blue" data-ng-model="bWindow">
 			</div>
 		</div>
-			</div>
+	</div>
 
-				<!--Progress bar -->
-				<center>
-					<div data-ng-model="isProgress" data-ng-show= "isProgress==1">
-						<md-progress-circular class="md-hue-2" md-mode="indeterminate"></md-progress-circular>
-					</div>
-				</center>
+	<!--Progress bar -->
+	<center>
+		<div data-ng-model="isProgress" data-ng-show= "isProgress==1">
+			<md-progress-circular class="md-hue-2" md-mode="indeterminate"></md-progress-circular>
+		</div>
+	</center>
 
-				<br/><br/>
+	<br/><br/>
 
-				<div data-ng-show="algorithm =='extLesk' || algorithm =='extLeskCont'">
-					<div style="height:245px;position:relative">
-					<div style="float:left;width:33%;position:relative;">
+	<div data-ng-show="algorithm =='extLesk' || algorithm =='extLeskCont'">
+		<div style="height:245px;position:relative">
+			<div style="float:left;width:33%;position:relative;">
 
-						<label> Select to include the following </label>
+				<label> Select to include the following </label>
 
-					
 
-						<md-checkbox data-ng-model="synonyms">
-						Synonyms 
-					</md-checkbox>
-					<md-checkbox  data-ng-model="hypernyms">
-					Hypernyms
+
+				<md-checkbox data-ng-model="synonyms">
+				Synonyms 
+				</md-checkbox>
+				<md-checkbox  data-ng-model="hypernyms">
+				Hypernyms
 				</md-checkbox>
 				<md-checkbox  data-ng-model="hyponyms">
 				Hyponyms
-			</md-checkbox>
-			<md-checkbox  data-ng-model="holonyms">
-			Holonyms
-		</md-checkbox>
-		<md-checkbox data-ng-model="meronyms">
-		Meronyms
-	</md-checkbox>
+				</md-checkbox>
+				<md-checkbox  data-ng-model="holonyms">
+				Holonyms
+				</md-checkbox>
+				<md-checkbox data-ng-model="meronyms">
+				Meronyms
+				</md-checkbox>
 
-</div>
+				</div>
 
 <div style="float:left;width:33%;top:25%;position:relative;">
 	<label> Depth Value
@@ -154,15 +146,15 @@
 			<option value="4">4</option>
 			<option value="5">5</option>
 		</select> &nbsp;
-		
+
 	</div>
 
 	<div style="float:left;width:33%;top:25%;position:relative;">
 		<label>Depth Factor (X)<sup>level : </label> &nbsp;{{depthFactor/10}}
 		<md-slider flex min="1" max="10" aria-label="blue" data-ng-model="depthFactor">
-</md-slider>
-	</div>
-	
+	</md-slider>
+</div>
+
 </div>
 </div>
 
@@ -184,15 +176,9 @@
 </md-item-content> 
 
 
-
-
-
 </div>
 </div>
 </md-content>
-
-
-
 
 </body>
 
