@@ -19,9 +19,10 @@
 		$scope.hyponyms = false;
 		$scope.holonyms = false;
 		$scope.meronyms = false;
-		$scope.tokens = ""
+		$scope.tokens = "";
+		$scope.showHeaders = 0;
 
-
+		console.log($scope.showHeaders);
 		$scope.tokenize = function(sentence)
 		{
 			$scope.endpointTokenize
@@ -77,6 +78,7 @@
 			$http.get($scope.endpoint + params ).
 			//$http.get('test.json').
 	        success(function(data) {
+	        	$scope.showHeaders = 1;
 	            $scope.sensesscores = $.parseJSON(data);
 	            $scope.isProgress = 0;
 	            

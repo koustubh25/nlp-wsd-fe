@@ -13,7 +13,7 @@
 	<link rel="stylesheet" href="css/app.css">
 
 	<!-- Set a Material Theme -->
-	<link rel="stylesheet" href="../bower_components/angular-material/themes/amber-theme.css">
+	<link rel="stylesheet" href="../bower_components/angular-material/themes/blue-theme.css">
 	<script src="../bower_components/angular/angular.js"></script>
 
 	<!-- Jquery -->
@@ -34,7 +34,7 @@
 
 </head>
 
-<body style="background-color:white;">
+<body class="app">
 
 	<md-toolbar>
 	<div class="md-toolbar-tools">
@@ -44,7 +44,7 @@
 
 
 
-<md-content layout-align="center">
+<md-content layout-align="center" class=".md-blue-theme">
 <div data-ng-controller="inputController" style="top:10%;position:relative; left:10%;width:80%">
 
 
@@ -63,16 +63,16 @@
 	<!--Display the list of tokens -->
 	<div data-ng-show="tokens.length > 0">
 		<label > Click the target word from the following tokens </label><br/>
-			<div data-ng-repeat="token in tokens">
-				<div data-ng-click="setIndex(token.index,token.word)" data-ng-class="selected:true">{{token.word}}</div>
-			</div>
+			<span data-ng-repeat="token in tokens">
+				<span data-ng-click="setIndex(token.index,token.word)">[{{token.word}}] </span>
+			</span>
 	</div>
 
 	<br/>
 
 	<!-- Display Target Word -->
 	<div data-ng-show="targetWord.length > 0">
-		<label>Target Word:</label> <mark>{{targetWord}}</mark>
+		<label>Target Word : &nbsp;</label> <span class="highlight">{{targetWord}}</span>
 	</div><br/>
 
 	<!-- Algorithm name -->
@@ -108,8 +108,6 @@
 			<md-progress-circular class="md-hue-2" md-mode="indeterminate"></md-progress-circular>
 		</div>
 	</center>
-
-	<br/><br/>
 
 	<div data-ng-show="algorithm =='extLesk' || algorithm =='extLeskCont'">
 		<div style="height:245px;position:relative">
@@ -150,7 +148,7 @@
 	</div>
 
 	<div style="float:left;width:33%;top:25%;position:relative;">
-		<label>Depth Factor (X)<sup>level  </label>: &nbsp;{{depthFactor/10}}
+		<label>Depth Factor (X)<sup>level  </label> : &nbsp;{{depthFactor/10}}
 		<md-slider flex min="1" max="10" aria-label="blue" data-ng-model="depthFactor">
 	</md-slider>
 </div>
@@ -165,8 +163,28 @@
 
 <!-- Section for printing result -->
 
-<md-list data-ng-repeat="item in sensesscores  | orderBy:'score':true">
+<span data-ng-show="showHeaders == 1">
+<md-list>
 <md-item-content>
+<div class="md-tile-left">
+	<b>No.</b>
+</div>
+<div class="md-tile-content">
+	<b>Sense</b>
+</div>
+<div class="md-tile-left">
+	<b>Score</b>
+</div>
+</md-item-content> 
+</md-list>
+</span>
+
+
+<md-list data-ng-repeat="item in sensesscores  | orderBy:'score':true">
+<md-item-content class="md-blue-theme">
+<div class="md-tile-left">
+	{{$index + 1}}
+</div>
 <div class="md-tile-content">
 	{{item.sense}}
 </div>
@@ -174,6 +192,7 @@
 	{{item.score}}
 </div>
 </md-item-content> 
+</md-list>
 
 
 </div>

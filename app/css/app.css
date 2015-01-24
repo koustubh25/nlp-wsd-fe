@@ -1,13 +1,16 @@
-ul {
-    width: 100%;
-    margin: 0;
-    padding: 0;
+.highlight{
+
+	background-color: #03A9F4;
+	color: white;
+    padding: 3px 5px;
+    margin: -3px -5px;
+    line-height: 1.7;
+    border-radius: 3px;
+    display:inline-block;
+    font-size: 16px;
 }
-ul li {
-    display: inline-block;
-    width: 33%;
-    min-height: 100px;
-    background: #ccc;
-    border: solid 1px black;
-    margin: -1px;
+.app{
+
+	style="background-color:white;
+	font-size: 14px;
 }
