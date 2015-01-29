@@ -87,6 +87,7 @@
 				<option value="lesk">Lesk</option>
 				<option value="extLesk">Extended Lesk</option>
 				<option value="extLeskCont">Extended Contextual Lesk</option>
+				<option value="extLeskCont2">Extended Contextual Lesk 2</option>
 			</select>
 		</div>
 
@@ -106,6 +107,13 @@
 		</div>
 	</div>
 
+	<div data-ng-show="algorithm == 'extLeskCont2'" style="left:75%;position:relative;width:25%;">
+		<label> Intersection Exponent </label> : {{intersecExp}}
+		<md-slider flex min="1" max="10" aria-label="blue" data-ng-model="intersecExp">
+	</md-slider>
+
+	</div>
+
 	<!--Progress bar -->
 	<center>
 		<div data-ng-model="isProgress" data-ng-show= "isProgress==1">
@@ -113,7 +121,7 @@
 		</div>
 	</center>
 
-	<div data-ng-show="algorithm =='extLesk' || algorithm =='extLeskCont'">
+	<div data-ng-show="algorithm =='extLesk' || algorithm =='extLeskCont' || algorithm =='extLeskCont2'">
 		<div style="height:245px;position:relative">
 			<div style="float:left;width:33%;position:relative;">
 

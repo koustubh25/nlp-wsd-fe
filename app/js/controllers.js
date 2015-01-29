@@ -5,8 +5,10 @@
 	wsdControllers.controller('inputController',['$scope','$http',function($scope,$http){
 
 		//set default values here
-		$scope.endpoint = "http://131.113.41.202:8080/nlp-wsd-demo/wsd/disambiguate?";
-		$scope.endpointTokenize = "http://131.113.41.202:8080/nlp-wsd-demo/wsd/tokenize?";
+		//$scope.endpoint = "http://131.113.41.202:8080/nlp-wsd-demo/wsd/disambiguate?";
+		//$scope.endpointTokenize = "http://131.113.41.202:8080/nlp-wsd-demo/wsd/tokenize?";
+		$scope.endpoint = "http://localhost:8080/nlp-wsd-demo/wsd/disambiguate?";
+		$scope.endpointTokenize = "http://localhost:8080/nlp-wsd-demo/wsd/tokenize?";
 		$scope.algorithm = "lesk";
 		$scope.sentence = "I went fishing for some sea bass.";
 		$scope.targetWord = "";
@@ -22,6 +24,7 @@
 		$scope.tokens = "";
 		$scope.showHeaders = 0;
 		$scope.errorSubmit = 0;
+		$scope.intersecExp = 1;
 	
 
 		console.log($scope.showHeaders);
@@ -80,7 +83,7 @@
 			params += "&algo=" + $scope.algorithm;
 			
 			//Formulate query based on th parameters
-			if($scope.algorithm=="extLesk" || $scope.algorithm=="extLeskCont")
+			if($scope.algorithm=="extLesk" || $scope.algorithm=="extLeskCont" || $scope.algorithm=="extLeskCont2")
 			{
 
 				params += "&synonyms=" + $scope.synonyms;
@@ -91,6 +94,10 @@
 				params += "&depthValue=" + $scope.depthValue;
 				params += "&depthFactor=" + $scope.depthFactor/10;
 					
+			}
+			if($scope.algorithm == "extLeskCont2")
+			{
+				params += "&intersecExp=" + $scope.intersecExp;
 			}
 
 			//call the Rest service
