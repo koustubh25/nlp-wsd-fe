@@ -29,3 +29,22 @@
     display:inline-block;
     font-size: 16px;
 }
+
+#home{
+top:30%;
+position:absolute;
+background: rgba(3, 169, 255, 0.1);
+left:15%;
+right:15%;
+text-align: center;
+
+}
+
+ul {
+    list-style-position: inside;
+}
+
+.charts{
+    top:50px;
+    position:relative;
+}
