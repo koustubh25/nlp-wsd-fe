@@ -219,7 +219,7 @@
 			}
 		});
 
-		//plot accuracy vs depth
+		//plot performances vs technique
 		$http.get('data/performancesPerTechnique.json').
 		success(function(data) {
 			$scope.performancesPerTechnique = {
