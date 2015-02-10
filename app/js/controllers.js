@@ -201,16 +201,16 @@
 		});
 
 		//plot accuracy vs depth
-		$http.get('data/accuracyDepthPerTechnique.json').
+		$http.get('data/coverageDepthPerTechnique.json').
 		success(function(data) {
 		
 			
-			$scope.accuracyDepthPerTechnique = {
+			$scope.coverageDepthPerTechnique = {
 
 				series: data,
 				yAxis: {min: 90, max: 99},
 				title: {
-					text: 'Accuracy vs Depth Level per Technique'
+					text: 'Coverage vs Depth Level per Technique'
 				},
 				xAxis: {
 					categories: ['Lesk Extended' , 'Lesk Extended Contextual' , 'Lesk Extended Contextual 2']
@@ -232,7 +232,7 @@
 				xAxis: {
 					categories: ['F Measure' , 'Accuracy' , 'Precision']
 				},
-				loading: false
+				//loading: false
 			}
 		});
 
