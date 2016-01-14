@@ -4,5 +4,6 @@ var portfolioApp = angular.module('wsd',[
 
 	'ngAnimate',
 	'ngMaterial',
-	'ui.router'
+	'ui.router',
+	'dataables'
 	]);

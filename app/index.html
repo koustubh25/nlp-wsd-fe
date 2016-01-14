@@ -10,14 +10,15 @@
 	<!-- Twitter Bootstrap css -->
 	<link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.min.css">
 
+	<link rel="stylesheet" href="../bower_components/datatables/media/css/dataTables.jqueryui.min.css">
+
 	<link rel="stylesheet" href="css/app.css">
 
 	<!-- Set a Material Theme -->
 	<link rel="stylesheet" href="../bower_components/angular-material/themes/blue-theme.css">
 	<script src="../bower_components/angular/angular.js"></script>
-
-	<!-- Jquery -->
-	<script src="../bower_components/jquery/dist/jquery.js"></script>
+	<script src="../bower_components/datatables/media/js/jquery.dataTables.min.js"></script>
+	<script src="../bower_components/angular-datatables/dist/angular-dataTables.min.js"></script>
 
 	<!-- Some customized scripts -->
 	<script type="text/javascript" src="js/wordclick.js"></script>
@@ -42,16 +43,16 @@
 
    <md-tabs class="md-accent" md-selected="data.selectedIndex">
       <md-tab id="tab1" ui-sref="home">
-        home
+        Private Server Management
       </md-tab>
       <md-tab id="tab2" ui-sref="wsd">
-        Word Sense Disambiguation
+        Netflix Vector
       </md-tab>
       <md-tab id="tab3" ui-sref="results">
-        Test Results
+        Gearman UI
       </md-tab>
-           <md-tab id="tab3" ui-sref="info">
-        Implementation Details
+        <md-tab id="tab3" ui-sref="info">
+        Supervisor Monitor
       </md-tab>
     </md-tabs>
 

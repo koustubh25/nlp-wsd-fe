@@ -1,0 +1,23 @@
+[{
+"serverip" : "192.0.1.118",
+"hostid" : 2,
+"video_workers" : 4,
+"pdf_workers" : 2
+
+},
+{
+"serverip" : "192.0.1.118",
+"hostid" : 2,
+"video_workers" : 4,
+"pdf_workers" : 2
+
+},
+{
+"serverip" : "192.0.1.118",
+"hostid" : 2,
+"video_workers" : 4,
+"pdf_workers" : 2
+
+}
+
+]

@@ -17,6 +17,7 @@
     "angular-ui-router": "",
    "bootstrap-material-design" : "",
    "bootstrap" : "", 
-   "highcharts-ng" : ""
+   "highcharts-ng" : "",
+   "angular-datatables" : "0.4.x"
   }
 }

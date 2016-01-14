@@ -142,6 +142,27 @@
 
 	}]);
 
+	wsdControllers.controller('homePageController',['$scope', '$http',function($scope, $http){
+	
+		$scope.showLoading = 0;
+		//get records
+		$http.get('data/data.json').success(function(data){
+			$scope.private_servers = data;
+		});
+
+		//insert record	
+		$scope.insert_private_server = function(){
+			$scope.showLoading = 1;
+			setTimeout(function() {  
+			console.log($scope.new_private_server.serverip);
+			$scope.showLoading = 0;
+			console.log($scope.showLoading);
+			}, 5000);
+		}
+
+
+	}]);
+
 	wsdControllers.controller('resultsController',['$scope','$http',function($scope,$http){
 
 		
@@ -184,8 +205,6 @@
 		//plot Windows size vs technique
 		$http.get('data/windowSizePerTechnique.json').
 		success(function(data) {
-			console.log(data);
-			
 			$scope.windowSizePerTechnique = {
 
 				series: data,

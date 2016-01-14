@@ -6,7 +6,8 @@ var nlpApp = angular.module('wsd',[
 	'ngAnimate',
 	'ngMaterial',
 	'ui.router',
-	'highcharts-ng'
+	'highcharts-ng',
+	'datatables'
 	]);
 
 

@@ -31,13 +31,12 @@
 }
 
 #home{
-top:30%;
+top:20%;
 position:absolute;
 background: rgba(3, 169, 255, 0.1);
-left:15%;
-right:15%;
+left:10%;
+right:10%;
 text-align: center;
-
 }
 
 ul {
@@ -47,6 +46,12 @@ ul {
 .charts{
     top:50px;
     position:relative;
+}
+
+.new_server{
+  float:left;
+  width:50%;
+  position:relative;
 }
 
 

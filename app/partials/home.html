@@ -1,14 +1,62 @@
 <div id="home">
-	<h1><i>Word Sense Disambiguation </i><br></h1>
+	<h1><i>Private Server Implementation </i><br></h1>
 
-	Check out the implementation of simple variants of the popular 'Lesk' Algorithm.<br/>
-	You can find all the related source code  <a href="http://131.113.41.21/nlp/wsd">here</a>.
-	Happy Browsing! <br><br>
+<table datatable="" class="row-border hover">
+    <thead>
+    <tr>
+        <th><md-content>Select</md-content></th>
+        <th>Server IP</th>
+        <th>Host ID</th>
+        <th>Video workers</th>
+        <th>PDF workers</th>
+    </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="private_server in private_servers">
+            <td><md-checkbox></md-checkbox></td>
+            <td>{{private_server.serverip}}</td>
+            <td>{{private_server.hostid}}</td>
+            <td>{{private_server.video_workers}}</td>
+            <td>{{private_server.pdf_workers}}</td>
+        </tr>
+    </tbody>
+</table>
 
-	<ul>
-		<li>Koustubh Gaikwad </li>
-		<li>Anthony Beylerian </li>
-		<li>Mondher Bouazizi </li>
-	</ul>
-	<br><br>
-</div>
+    <md-button class="md-raised md-primary">Add new Private Server</md-button>
+    <md-button class="md-raised md-warn">Remove Private Server</md-button>
+  
+
+    {{new_server =1}}
+    <div id="new_server" style="position:relative;top:20%;" data-ng-show = "new_server == 1">
+        <h1> Create new Private Server </h1> <br/>
+
+        <div layout-gt-sm="row">
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Server IP: </label>
+            <input data-ng-model="new_private_server.serverip">
+          </md-input-container>
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Host ID: </label>
+            <input ng-model="new_private_server.hostid">
+          </md-input-container>
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>Vid. workers: </label>
+            <input ng-model="new_private_server.video_workers">
+          </md-input-container>
+          <md-input-container class="md-block" flex-gt-sm>
+            <label>PDF workers: </label>
+            <input ng-model="new_private_server.pdf_workers">
+          </md-input-container>
+        </div>
+        <br/>
+        <md-button class="md-raised md-primary" data-ng-click = "insert_private_server()">create</md-button>
+        
+    </div>
+   
+    <div data-ng-show="showLoading == 1" style="left:48%;position:relative;">
+         <md-progress-circular md-mode="indeterminate"></md-progress-circular>
+    </div>
+
+    </div>
+
+  
