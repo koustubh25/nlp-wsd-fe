@@ -1,0 +1,27 @@
+	[
+	{
+	"type" : "column",
+	"name" : "Lesk Basic",
+	"data" :[ 23.8325277395182 ,16.8821292647284, 40.5109488311844 ]
+	},
+	{
+		"type" : "column",
+		"name" : "Lesk Basic Contextual",
+		"data" :[ 21.1640207182749, 15.2091254637192, 34.7826086351606]
+	},
+	{
+	"type" : "column",
+	"name" : "Lesk Extended",
+	"data" :[ 55.8925138525278,	55.3612166879382, 57.815126001836 ]
+	},
+	{
+		"type" : "column",
+		"name" : "Lesk Extended Contextual",
+		"data" :[ 55.4615379189423,	54.828897296708, 57.783417886816]
+	},
+	{
+		"type" : "column",
+		"name" : "Lesk Extended Contextual 2",
+		"data" :[ 56.3447720021461, 53.6882128869291, 59.2779176664333]
+	}
+	]

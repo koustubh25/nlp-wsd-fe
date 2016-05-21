@@ -25,6 +25,10 @@
 	<!-- angular ui-route script -->
 	<script src="../bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
 
+	<!--Highcharts for plotting graph -->
+	<script src="../bower_components/highcharts-ng/src/highcharts-ng.js"></script>
+	<script src="../bower_components/highcharts-release/highcharts.js"></script>
+
 	<script src="../bower_components/angular-animate/angular-animate.js"></script>
 	<script src="../bower_components/angular-aria/angular-aria.js"></script>
 	<script src="../bower_components/hammerjs/hammer.js"></script>
@@ -36,188 +40,23 @@
 
 <body class="app">
 
-	<md-toolbar>
-	<div class="md-toolbar-tools">
-		<span class="md-flex"> Word Sense Disambiguation </span>
-	</div>
-</md-toolbar>
+   <md-tabs class="md-accent" md-selected="data.selectedIndex">
+      <md-tab id="tab1" ui-sref="home">
+        home
+      </md-tab>
+      <md-tab id="tab2" ui-sref="wsd">
+        Word Sense Disambiguation
+      </md-tab>
+      <md-tab id="tab3" ui-sref="results">
+        Test Results
+      </md-tab>
+           <md-tab id="tab3" ui-sref="info">
+        Implementation Details
+      </md-tab>
+    </md-tabs>
 
-
-
-<md-content layout-align="center" class=".md-blue-theme">
-<div data-ng-controller="inputController" style="top:10%;position:relative; left:10%;width:80%">
-
-
-	<!--input sentence -->		
-	<label style="top:10px;position:absolute;"> Enter input sentence </label><br/><br/>
-	
-	<div data-ng-form= "inputSentence">
-	<textarea  style="width:500px" name="sent" data-ng-model="sentence" data-ng-minlength="1" required>
-	
-	</textarea> 
-	<md-button data-ng-disabled ="!inputSentence.$valid" data-ng-click="tokenize()"  class="md-raised md-primary"> Tokenize </md-button><span class="error" data-ng-show="errorTokenize == true">&nbsp;Failed to tokenize. Please try again.</span>
-	</div>
-
-	<!--Loading icon -->
-	<div data-ng-model="isProgress" data-ng-show= "isTokenLoading==1">
-		<md-progress-circular class="md-hue-2" md-mode="indeterminate"></md-progress-circular>
-	</div>
-	<br/><br/>
-
-	<!--Display the list of tokens -->
-	<div data-ng-show="tokens.length > 0">
-		<label > Click the target word from the following tokens </label><br/>
-			<span data-ng-repeat="token in tokens">
-				<span data-ng-click="setIndex(token.index,token.word)">[{{token.word}}] </span>
-			</span>
-	</div>
-
-	<br/>
-
-	<!-- Display Target Word -->
-	<div data-ng-show="targetWord.length > 0">
-		<label>Target Word : &nbsp;</label> <span class="highlight">{{targetWord}}</span>
-	</div><br/>
-
-	<!-- Algorithm name -->
-	<div style="height:100px;position:realtive">
-		<div style="float:left;width:33%;position:relative;">
-			<label>Algorithm Name </label><br/>
-			<select data-ng-model="algorithm">
-				<option value="lesk">Lesk</option>
-				<option value="extLesk">Extended Lesk</option>
-				<option value="extLeskCont">Extended Contextual Lesk</option>
-				<option value="extLeskCont2">Extended Contextual Lesk 2</option>
-			</select>
-		</div>
-
-		<!-- Forward and Backward Window -->
-		<div data-ng-show="algorithm != 'extLesk'">
-			<div style="float:left;width:25%;position:relative;">
-				<label>Forward Window Size : </label> &nbsp;{{fWindow}} <br/>
-
-				<md-slider flex min="0" max="20" aria-label="blue" data-ng-model="fWindow">
-			</div>
-
-			<div style="float:right;width:25%;position:relative;">
-				<label>Backward Window Size : </label> &nbsp;{{bWindow}} <br/>
-
-				<md-slider flex min="0" max="20" aria-label="blue" data-ng-model="bWindow">
-			</div>
-		</div>
-	</div>
-
-	<div data-ng-show="algorithm == 'extLeskCont2'" style="left:75%;position:relative;width:25%;">
-		<label> Intersection Exponent </label> : {{intersecExp}}
-		<md-slider flex min="1" max="10" aria-label="blue" data-ng-model="intersecExp">
-	</md-slider>
-
-	</div>
-
-	<!--Progress bar -->
-	<center>
-		<div data-ng-model="isProgress" data-ng-show= "isProgress==1">
-			<md-progress-circular class="md-hue-2" md-mode="indeterminate"></md-progress-circular>
-		</div>
-	</center>
-
-	<div data-ng-show="algorithm =='extLesk' || algorithm =='extLeskCont' || algorithm =='extLeskCont2'">
-		<div style="height:245px;position:relative">
-			<div style="float:left;width:33%;position:relative;">
-
-				<label> Select to include the following </label>
-
-
-
-				<md-checkbox data-ng-model="synonyms">
-				Synonyms 
-				</md-checkbox>
-				<md-checkbox  data-ng-model="hypernyms">
-				Hypernyms
-				</md-checkbox>
-				<md-checkbox  data-ng-model="hyponyms">
-				Hyponyms
-				</md-checkbox>
-				<md-checkbox  data-ng-model="holonyms">
-				Holonyms
-				</md-checkbox>
-				<md-checkbox data-ng-model="meronyms">
-				Meronyms
-				</md-checkbox>
-
-				</div>
-
-<div style="float:left;width:33%;top:25%;position:relative;">
-	<label> Depth Value
-		<select data-ng-model="depthValue">
-			<option value="1">1</option>
-			<option value="2">2</option>
-			<option value="3">3</option>
-			<option value="4">4</option>
-			<option value="5">5</option>
-		</select> &nbsp;
-
-	</div>
-
-	<div style="float:left;width:33%;top:25%;position:relative;">
-		<label>Depth Factor (X)<sup>level  </label> : &nbsp;{{depthFactor/10}}
-		<md-slider flex min="1" max="10" aria-label="blue" data-ng-model="depthFactor">
-	</md-slider>
-</div>
-
-</div>
-</div>
-
-<center>
-
-	<md-button data-ng-click="getSensesAndScores()"  class="md-raised md-primary" data-ng-disabled="isValid() == false"> Submit </md-button>
-</center>
-
-
-<!-- Section for printing result -->
-
-<br/><br/>
-<center>
-<span data-ng-show="errorSubmit == 1 " class="error">
-	Something went wrong with the request. Check the parameters and try again.
-</span>
-</center>
-
-<span data-ng-show="showHeaders == 1">
-<md-list>
-<md-item-content>
-<div class="md-tile-left highlight">
-	<b>No.</b>
-</div>
-<div class="md-tile-content highlight">
-	<b>Sense</b>
-</div>
-<div class="md-tile-left highlight">
-	<b>Score</b>
-</div>
-</md-item-content> 
-</md-list>
-</span>
-
-
-<md-list data-ng-repeat="item in sensesscores  | orderBy:'score':true">
-<md-item-content class="md-blue-theme">
-<div class="md-tile-left ">
-	{{$index + 1}}
-</div>
-<div class="md-tile-content ">
-	{{item.sense}}
-</div>
-<div class="md-tile-left ">
-	{{item.score}}
-</div>
-</md-item-content> 
-</md-list>
-
-
-</div>
-</div>
-</md-content>
+<div data-ui-view class="view-frame">
+  </div>
 
 </body>
 
