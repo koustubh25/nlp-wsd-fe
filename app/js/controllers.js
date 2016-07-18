@@ -25,9 +25,6 @@
 		$scope.showHeaders = 0;
 		$scope.errorSubmit = 0;
 		$scope.intersecExp = 1;
-		
-
-		console.log($scope.showHeaders);
 
 		$scope.isValid = function()
 		{
@@ -139,6 +136,10 @@
 
 	wsdControllers.controller('infoController',['$scope',function($scope){
 		$scope.comp=1;
+
+	}]);
+
+	wsdControllers.controller('homePageController',['$scope',function($scope){
 
 	}]);
 
