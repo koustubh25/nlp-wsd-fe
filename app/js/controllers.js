@@ -7,8 +7,8 @@
 		//set default values here
 		//$scope.endpoint = "http://131.113.41.202:8080/nlp-wsd-demo/wsd/disambiguate?";
 		//$scope.endpointTokenize = "http://131.113.41.202:8080/nlp-wsd-demo/wsd/tokenize?";
-		$scope.endpoint = "http://54.213.193.114:8080/nlp-wsd-demo/wsd/disambiguate?";
-		$scope.endpointTokenize = "http://54.213.193.114:8080/nlp-wsd-demo/wsd/tokenize?";
+		$scope.endpoint = "http://34.219.3.57:8080/nlp-wsd-demo/wsd/disambiguate?";
+		$scope.endpointTokenize = "http://34.219.3.57:8080/nlp-wsd-demo/wsd/tokenize?";
 		$scope.algorithm = "lesk";
 		$scope.sentence = "I went fishing for some sea bass.";
 		$scope.targetWord = "";
